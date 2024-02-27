@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Conversão Monetária</title>
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Conversor de Moedas</h1>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="field">
+                    <label class="label">Moeda de Origem</label>
+                    <div class="control"> {{ form.from_currency }} </div>
+                </div>
+                <div class="field">
+                    <label class="label">Moeda de Destino</label>
+                    <div class="control"> {{ form.to_currency }} </div>
+                </div>
+                <div class="field">
+                    <label class="label">Valor</label>
+                    <div class="control"> {{ form.amount }} </div>
+                </div>
+                 <div class="field">
+                    <button class="button is-primary" type="submit">Converter</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+</html>

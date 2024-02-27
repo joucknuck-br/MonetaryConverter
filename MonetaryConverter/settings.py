@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'core',
 ]
 
 MIDDLEWARE = [
@@ -75,8 +76,22 @@ WSGI_APPLICATION = 'MonetaryConverter.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        'NAME': 'Cluster0',
+        'CLIENT': {
+            'host': 'mongodb+srv://joucknuckbr:NhlDTD4U67Qim2iV@cluster0.jdkgdfk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
+            'username': 'joucknuckbr',
+            'password': 'NhlDTD4U67Qim2iV',
+            'authMechanism': "DEFAULT",
+        },
+        'LOGGING': {
+            'version': 1,
+            'loggers': {
+                'djongo': {
+                    'level': 'DEBUG',
+                },
+            },
+        },
     }
 }
 
