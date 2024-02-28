@@ -5,6 +5,7 @@ class CurrencyRate(models.Model):
     """
     Model to store currency rates
     """
+
     currency = models.CharField(max_length=3, unique=True)
     rate = models.DecimalField(max_digits=10, decimal_places=4)
     last_updated = models.DateTimeField(auto_now=True)
