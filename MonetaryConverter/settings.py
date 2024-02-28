@@ -31,13 +31,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'core',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core',
 ]
 
 MIDDLEWARE = [
@@ -78,19 +78,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'Cluster0',
+        'ENFORCE_SCHEMA': False,
         'CLIENT': {
             'host': 'mongodb+srv://joucknuckbr:NhlDTD4U67Qim2iV@cluster0.jdkgdfk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
             'username': 'joucknuckbr',
             'password': 'NhlDTD4U67Qim2iV',
             'authMechanism': "DEFAULT",
-        },
-        'LOGGING': {
-            'version': 1,
-            'loggers': {
-                'djongo': {
-                    'level': 'DEBUG',
-                },
-            },
         },
     }
 }

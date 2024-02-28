@@ -25,4 +25,4 @@ class Conversion(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.from_currency} -> {self.to_currency}: {self.amount} ({self.converted_amount})"
+        return f"{self.from_currency} to {self.to_currency}: {self.amount} ({self.converted_amount})"

@@ -1,4 +1,6 @@
 from django import forms
+from django.core.management import BaseCommand
+from requests import get
 
 from .models import CurrencyRate
 
