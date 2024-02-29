@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.4/css/bulma.min.css">
+
+    <style>
+        .notification {
+            display: inline-block;
+            padding: 1.0rem 1.0rem 1.0rem 1.0rem;
+            margin-left: 1.5rem;
+            position: relative;
+            border-radius: 4px;
+        }
+        .notification .delete {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+        }
+        .notification ul {
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+<section class="section">
+    <div class="container">
+        <h1 class="title">Login</h1>
+        <form method="post" action="{% url 'login_form' %}">
+            {% csrf_token %}
+            <div class="field">
+                <label class="label">Username</label>
+                <input class="input" type="text" id="username" name="username" required>
+            </div>
+            <br>
+            <div class="field">
+                <label class="label">Password</label>
+                <input class="input" type="password" id="password" name="password" required>
+            </div>
+            <br>
+            <div class="field" style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
+                <button class="button is-primary" type="submit">Login</button>
+                <a href="{% url 'register_form' %}" class="button is-primary">
+                    Create User
+                </a>
+            </div>
+        </form>
+    </div>
+</section>
+
+{% if messages %}
+<div class="notification is-warning">
+    <button class="delete"></button>
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+            const $notification = $delete.parentNode;
+
+            $delete.addEventListener('click', () => {
+                $notification.parentNode.removeChild($notification);
+            });
+        });
+    });
+
+    $(document).ready(function() {
+    $('#loginForm').submit(function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        $.ajax({
+            url: '/api/login/',
+            type: 'POST',
+            data: $(this).serialize(),
+            success: function(data) {
+                // Store JWT token (if you need it)
+                // Redirect to the desired page, e.g.,
+                window.location.href = "{% url 'conversion_form' %}";
+            },
+            error: function(error) {
+                // Handle login errors
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

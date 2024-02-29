@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create User</title>
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li>{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<section class="section">
+    <div class="container">
+        <h1 class="title">Create user</h1>
+        <form method="post" action="{% url 'register_form' %}">
+            {% csrf_token %}
+            <div class="field">
+                <label class="label">Username</label>
+                <input class="input" type="text" id="username" name="username" required>
+            </div>
+            <br>
+            <div class="field">
+                <label class="label">Password</label>
+                <input class="input" type="password" id="password1" name="password1" required>
+            </div>
+            <br>
+            <div class="field">
+                <label class="label">Confirm Password</label>
+                <input class="input" type="password" id="password2" name="password2" required>
+            </div>
+            <br>
+            <div class="field">
+                <label class="label">First Name</label>
+                <input class="input" type="text" id="first_name" name="first_name" required>
+            </div>
+            <br>
+            <div class="field">
+                <label class="label">Last Name</label>
+                <input class="input" type="text" id="last_name" name="last_name" required>
+            </div>
+            <div class="field">
+                <label class="label">Email</label>
+                <input class="input" type="email" id="email" name="email" required>
+            </div>
+            <br>
+            <div class="field" style="display: flex; align-items: center; gap: 10px;">
+                <button class="button is-primary" type="submit" onclick="validatePassword()">Create</button>
+                <a href="{% url 'login_form' %}" class="button is-primary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</section>
+
+<script>
+    function validatePassword() {
+        const password1 = document.getElementById('password1').value;
+        const password2 = document.getElementById('password2').value;
+        if (password1 !== password2) {
+            alert('Passwords do not match.');
+            return false;
+        }
+        return true;
+    }
+</script>
+</body>
+</html>

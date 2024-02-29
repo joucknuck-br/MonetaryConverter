@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Conversão Monetária</title>
-    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.4/css/bulma.min.css" />
 </head>
 <body>
     <section class="section">
@@ -32,9 +32,13 @@
                 <div id="converted_amount_container" class="field" style="display: none;">
                     <label class="label">Valor Convertido</label>
                     <div class="control">
-                        <p id="converted_amount"></p> </div>
+                        <p id="converted_amount"></p>
+                    </div>
                 </div>
             </form>
+            <div class="field">
+                <button class="button is-primary" onclick="window.location.href = '{% url 'logout' %}';">Logout</button>
+            </div>
         </div>
     </section>
 
