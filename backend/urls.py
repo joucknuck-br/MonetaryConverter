@@ -1,7 +1,7 @@
 from django.urls import path
 
-from utils.authentication import LoginView, LogoutView
-from .views import post_conversion, trigger_currency_update, get_all, get_object, UserCreateAPIView, get_all_conversions
+from .views import post_conversion, trigger_currency_update, get_all, get_object, UserCreateAPIView, \
+    get_all_conversions, LoginView, LogoutView
 
 urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),

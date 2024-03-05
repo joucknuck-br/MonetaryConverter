@@ -1,60 +1,67 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>Conversão Monetária</title>
-    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.4/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.4/css/bulma.min.css"/>
+
+    <style>
+        .loading-indicator {
+            display: none; /* Hide by default */
+            position: relative;
+            margin-left: 10px; /* Place next to the button */
+        }
+
+        .loading-indicator.is-active {
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
-    <section class="section">
-        <div class="container">
-            <h1 class="title">Conversor de Moedas</h1>
-            <form method="POST">
-                {% csrf_token %}
-                <div class="field">
-                    <label class="label">Moeda de Origem</label>
-                    <div class="control"> {{ form.from_currency }} </div>
-                </div>
+<script src="{% static 'js/conversion_script.js' %}"></script>
+
+<section class="section">
+    <div class="container">
+        <h1 class="title">Conversor de Moedas</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="field">
+                <label class="label">Moeda de Origem</label>
+                <div class="control"> {{ form.from_currency }}</div>
+            </div>
+            <div class="field" style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
                 <div class="field">
                     <label class="label">Moeda de Destino</label>
-                    <div class="control"> {{ form.to_currency }} </div>
+                    <div class="control"> {{ form.to_currency }}</div>
                 </div>
-                <div class="field">
-                    <label class="label">Valor</label>
-                    <div class="control"> {{ form.amount }} </div>
-                </div>
-                <div class="field">
-                    <button class="button" type="button" onclick="updateCurrencies()">Atualizar Cotações</button>
-                </div>
-                 <div class="field">
-                    <button class="button is-primary" type="submit">Converter</button>
-                </div>
-                <div id="converted_amount_container" class="field" style="display: none;">
-                    <label class="label">Valor Convertido</label>
-                    <div class="control">
-                        <p id="converted_amount"></p>
+                <div class="field" style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
+                    <div class="field" style="display: flex; align-items: center; margin-top: 10px; margin-left: 20px;">
+                        <a class="button is-primary" onclick="updateCurrencies()">Atualizar Cotações</a>
+                        <div class="loading-indicator"><img src="{% static 'images/loading_resized.gif' %}" alt="Loading...">
+                        </div>
                     </div>
                 </div>
-            </form>
-            <div class="field">
-                <button class="button is-primary" onclick="window.location.href = '{% url 'logout' %}';">Logout</button>
             </div>
+            <div class="field">
+                <label class="label">Valor</label>
+                <div class="control"> {{ form.amount }}</div>
+            </div>
+            <div class="field">
+                <button class="button is-primary" type="submit">Converter</button>
+            </div>
+        </form>
+        <br>
+        <label class="label">Valor Convertido</label>
+        <div class="field" style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
+            <input class="input" type="text" id="converted_amount" name="converted_amount"
+                   value="{{ converted_amount }}" style="width: 15.0rem" readonly/>
+            <div class="field" id="currency_code"> {{ currency_code }} </div>
         </div>
-    </section>
-
-    <script>
-        function updateCurrencies() {
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', "{% url 'update-rates' %}");
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    alert("Cotações atualizadas com sucesso!");
-                } else {
-                    alert("Erro ao atualizar cotações.");
-                }
-            };
-            xhr.send();
-        }
-    </script>
+        <div class="field">
+            <button class="button is-primary" onclick="window.location.href = '{% url 'logout' %}';">Logout</button>
+        </div>
+    </div>
+</section>
 </body>
 </html>

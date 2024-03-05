@@ -9,7 +9,7 @@ class ConversionForm(forms.Form):
 
     from_currency = forms.ModelChoiceField(queryset=CurrencyRate.objects.all())
     to_currency = forms.ModelChoiceField(queryset=CurrencyRate.objects.all())
-    amount = forms.DecimalField(max_digits=10, decimal_places=2)
+    amount = forms.DecimalField(max_digits=10, decimal_places=4)
 
     def clean(self):
         cleaned_data = super().clean()
